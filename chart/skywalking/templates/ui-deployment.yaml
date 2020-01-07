@@ -55,3 +55,5 @@ spec:
         env:
         - name: SW_OAP_ADDRESS
           value: {{ template "skywalking.oap.fullname" . }}:{{ .Values.oap.ports.rest }}
+        - name: SERVER_CONTEXT_PATH
+          value: {{ .Values.ui.webpath }}

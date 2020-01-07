@@ -1,6 +1,9 @@
 Apache SkyWalking Kubernetes
 ==========
 
+# Deploy SkyWalking backend using an Existing Elasticsearch 
+
+
 # Deploy SkyWalking backend to Kubernetes cluster
 
 To install and configure skywalking in a Kubernetes cluster, follow these instructions.
@@ -33,7 +36,10 @@ $ helm dep up skywalking
 $ helm install <release_name> skywalking -n <namespace> \
         --set elasticsearch.enabled=false \
         --set elasticsearch.config.host=<es_host> \
-        --set elasticsearch.config.port.http=<es_port>
+        --set elasticsearch.config.port=<es_port> \
+        --set elasticsearch.config.usePassword=true \
+        --set elasticsearch.config.password=<es_password> \
+        --set elasticsearch.config.user=<es_username>
 ```
 
 ## Structure of repository

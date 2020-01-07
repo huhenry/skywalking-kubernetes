@@ -29,8 +29,8 @@ Learn more, please visit https://skywalking.apache.org/
 
 Get the UI URL by running these commands:
 {{- if .Values.ui.ingress.enabled }}
-{{- range .Values.ui.ingress.hosts }}
-  http{{ if $.Values.ui.ingress.tls }}s{{ end }}://{{ . }}{{ $.Values.ui.ingress.path }}
+{{- if .Values.ui.ingress.host }}
+  http{{ if $.Values.ui.ingress.tls }}s{{ end }}://{{ .Values.ui.ingress.host }}/{{ $.Values.ui.webpath }}
 {{- end }}
 {{- else if contains "NodePort" .Values.ui.service.type }}
   export NODE_PORT=$(kubectl get --namespace {{ .Release.Namespace }} -o jsonpath="{.spec.ports[0].nodePort}" services {{ include "skywalking.ui.fullname" . }})

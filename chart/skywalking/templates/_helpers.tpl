@@ -77,6 +77,11 @@ Create the name of the service account to use for the oap cluster
 {{- if .Values.elasticsearch.enabled }}
   command: ['sh', '-c', 'for i in $(seq 1 60); do nc -z -w3 {{ include "call-nested" (list . "elasticsearch" "elasticsearch.client.fullname") }} 9200 && exit 0 || sleep 5; done; exit 1']
 {{- else }}
-  command: ['sh', '-c', 'for i in $(seq 1 60); do nc -z -w3 {{ .Values.elasticsearch.config.host }} {{ .Values.elasticsearch.config.port.http }} && exit 0 || sleep 5; done; exit 1']
+  command: ['sh', '-c', 'for i in $(seq 1 60); do nc -z -w3 {{ .Values.elasticsearch.config.host }} {{ .Values.elasticsearch.config.port }} && exit 0 || sleep 5; done; exit 1']
 {{- end }}
+{{- end -}}
+
+{{- define "elasticsearch.client.url" -}}
+{{- $port := .Values.elasticsearch.config.port | toString -}}
+{{- printf "%s:%s" .Values.elasticsearch.config.host $port }}
 {{- end -}}
